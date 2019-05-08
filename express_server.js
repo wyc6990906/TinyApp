@@ -2,9 +2,11 @@ const express = require("express");
 const app = express();
 const PORT = 8080;
 const bodyParser = require("body-parser");
+const cookie = require("cookie");
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookie({ secret: "" }));
 
 const urlDatabase = {
   b2xVn2: "http://www.lighthouselabs.ca",
@@ -43,6 +45,8 @@ app.get("/urls/:shortURL", (req, res) => {
 app.post("/urls/:id/delete", (req, res) => {
   res.send("ok");
 });
+
+app.post();
 
 // The form to edit an URL
 app.get("/urls/:id", (req, res) => {
