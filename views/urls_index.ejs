@@ -18,7 +18,13 @@
   </head>
   <body style="font-size:20px; padding:50px;">
     <header>
-      <% include ./partials/_header.ejs %>
+      <% include ./partials/_header %>
     </header>
+
+    <ul>
+      My URLs <% for(let short in urls) { %>
+      <li><%= short %> : <a href="#"><%= urls[short] %></a></li>
+      <% } %>
+    </ul>
   </body>
 </html>

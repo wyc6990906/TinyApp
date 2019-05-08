@@ -18,7 +18,10 @@
   </head>
   <body style="font-size:20px; padding:50px;">
     <header>
-      <% include ./partials/_header.ejs %>
+      <% include ./partials/_header %>
     </header>
+    <p>Short Url is: <%= shortURL %></p>
+    <p>Long Url is: <%= longURL %></p>
+    <button>Edit URL</button>
   </body>
 </html>
