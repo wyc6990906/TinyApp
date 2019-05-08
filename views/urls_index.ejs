@@ -21,10 +21,20 @@
       <% include ./partials/_header %>
     </header>
 
+    <h1>My URLs</h1>
+
     <ul>
-      My URLs <% for(let short in urls) { %>
-      <li><%= short %> : <a href="#"><%= urls[short] %></a></li>
-      <% } %>
+      <% for (const key in urls) { %> <% if (urls.hasOwnProperty(key)) { %> <%
+      const url = urls[key]; %>
+      <li>
+        <a href="/u/<%= key %>"><%= key %></a> ->
+        <a href="<%= url.longURL %>"><%= url.longURL %></a> <%= url.userID %>)
+        <a href="/urls/<%= key %>">Edit</a>
+        <form method="POST" action="/urls/<%= key %>/delete">
+          <input type="submit" value="Delete" />
+        </form>
+      </li>
+      <% } %> <% } %>
     </ul>
   </body>
 </html>

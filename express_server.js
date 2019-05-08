@@ -39,6 +39,11 @@ app.get("/urls/:shortURL", (req, res) => {
   res.render("urls_show", templateVars);
 });
 
+//Delete and url from database
+app.post("/urls/:id/delete", (req, res) => {
+  res.send("ok");
+});
+
 // The form to edit an URL
 app.get("/urls/:id", (req, res) => {
   if ((req.session.user_id, req.params.id)) {
@@ -68,10 +73,10 @@ app.get("/urls", (req, res) => {
 
 app.post("/urls", (req, res) => {
   console.log(req.body); // Log the POST request body to the console
-  res.send("Ok"); // Respond with 'Ok' (we will replace this)
+  res.send(""); // Respond with 'Ok' (we will replace this)
 });
 
-//// Redirects to the long URL corresponding to the short URL given
+// Redirects to the long URL corresponding to the short URL given
 app.get("/u/:shortURL", (req, res) => {
   if (urlDatabase[req.params.shortURL] === undefined) {
     // It is not in the database.
