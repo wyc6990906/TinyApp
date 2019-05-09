@@ -17,27 +17,21 @@
     <title>TinyApp</title>
   </head>
   <body style="font-size:20px; padding:50px;">
-    
-      <% include ./partials/_header %>
-   
+    <% include ./partials/_header %>
 
-    <h1>URL:</h1>
-    <ul>
-      <li>
-        The shortURL:
-        <b><a ref="/u/<%= shortURL %>"><%= shortURL %></a></b> 
-        <form method="POST" action="/urls/<%= shortURL %>?_method=PUT">
-          <input
-            type="text"
-            value="<%= longURL.longURL %>"
-            name="longURL"
-            style="width: 300px"
-          />
-          <button type="submit">Update</button>
-        </form>
-      </li>
-    </ul>
-    <!-- <p>View URLs on the <a href="/urls">database</a></p>
-    <p>Shorten a new <a href="/urls/new">URL</a></p>
-  </body> -->
+    <p style="margin-top: 50px;">Short URL: <%= shortURL %></p>
+
+    <form method="POST" action="/urls/<%= shortURL %>">
+      <input
+        style="width: 500px;"
+        type="text"
+        id="longURL"
+        name="longURL"
+        value="<%= longURL %>"
+      />
+      <button type="submit">
+        <span style="display: inline;">Update</span>
+      </button>
+    </form>
+  </body>
 </html>

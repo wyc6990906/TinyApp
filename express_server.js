@@ -3,6 +3,9 @@ const app = express();
 const PORT = 8080;
 const bodyParser = require("body-parser");
 const cookieSession = require("cookie-session");
+const bcrypt = require("bcrypt");
+const password = "purple-monkey-dinosaur";
+const hashedPassword = bcrypt.hashSync(password, 10);
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -30,17 +33,17 @@ const users = {
   userRandomID: {
     id: "userRandomID",
     email: "a@s.com",
-    password: "tS[_fn];U_c[p66"
+    password: bcrypt.hashSync("purple-monkey-dinosaur", 10)
   },
   user2RandomID: {
     id: "user2RandomID",
     email: "b@s.com",
-    password: "[7;5j,r=Fs)%`'<D"
+    password: bcrypt.hashSync("123", 10)
   },
   user3RandomID: {
     id: "user3RandomID",
-    email: "s@s.com",
-    password: ".9`z7QY3/a`S4)kF"
+    email: "c@s.com",
+    password: bcrypt.hashSync("456", 10)
   }
 };
 

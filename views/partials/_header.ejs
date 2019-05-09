@@ -1,1 +1,33 @@
-<h1>TinyApp: the best URL shortener on the universe</h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>TinyApp</title>
+  </head>
+
+  <body style="font-size:20px; padding:50px;">
+    <p>Tiny App</p>
+
+    <% if (user) { %>
+    <p style="margin: 0;"><%= user.email %></p>
+    <form style="display: inline;" method="POST" action="/logout">
+      <button style="display: inline;" type="submit">
+        <span>Log out</span>
+      </button>
+    </form>
+    <% } else { %>
+    <form style="display: inline;" method="GET" action="/login">
+      <button type="submit">
+        <span>Log In</span>
+      </button>
+    </form>
+    <form style="display: inline;" method="GET" action="/register">
+      <button type="submit">
+        <span>Register</span>
+      </button>
+    </form>
+    <% } %>
+  </body>
+</html>
