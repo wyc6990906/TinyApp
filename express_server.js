@@ -2,31 +2,25 @@ const express = require("express");
 const app = express();
 const PORT = 8080;
 const bodyParser = require("body-parser");
-const cookie = require("cookie");
+const cookieParser = require("cookie-parser");
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookie({ secret: "" }));
+app.use(cookieParser());
 
 const urlDatabase = {
   b2xVn2: "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com"
 };
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
-}
-
-function generateRandomString(howMany = 6) {
-  let rndStr = "";
-  const charset = "0123456789ABCDEFGHIJLKNOPQRSTVYXZabcdefghiklmnopqrstvyzx";
-
-  for (let i = 0; i < howMany; i++) {
-    const index = getRandomInt(charset.length);
-    rndStr += charset.charAt(index);
+function makeid(length) {
+  var result = "";
+  var characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
-
-  return rndStr;
+  return result;
 }
 
 // Form to create a new short URL
@@ -43,10 +37,15 @@ app.get("/urls/:shortURL", (req, res) => {
 
 //Delete and url from database
 app.post("/urls/:id/delete", (req, res) => {
-  res.send("ok");
+  delete urlDatabase[req.params.id];
+  res.redirect("/urls");
 });
 
-app.post();
+app.post("/urls/:id/", (req, res) => {
+  console.log(req.body);
+  urlDatabase[req.params.id] = req.body.longURL;
+  res.redirect("/urls");
+});
 
 // The form to edit an URL
 app.get("/urls/:id", (req, res) => {
@@ -64,7 +63,7 @@ app.get("/urls/:id", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  response.send("Hello!");
+  res.send("Hello!");
 });
 app.get("/urls.json", (req, res) => {
   res.json(urlDatabase);
@@ -77,18 +76,23 @@ app.get("/urls", (req, res) => {
 
 app.post("/urls", (req, res) => {
   console.log(req.body); // Log the POST request body to the console
-  res.send(""); // Respond with 'Ok' (we will replace this)
+  urlDatabase[makeid(6)] = req.body.longURL;
+  res.send(urlDatabase);
+
+  // Respond with 'Ok' (we will replace this)
 });
 
 // Redirects to the long URL corresponding to the short URL given
 app.get("/u/:shortURL", (req, res) => {
-  if (urlDatabase[req.params.shortURL] === undefined) {
+  console.log(req.params.shortURL);
+  if (!urlDatabase[req.params.shortURL]) {
     // It is not in the database.
-    res.redirect("/notFound");
+
+    res.send("notFound");
   } else {
-    let longURL = urlDatabase[req.params.shortURL].longURL;
-    if (longURL === undefined) {
-      res.redirect("/notFound");
+    let longURL = urlDatabase[req.params.shortURL];
+    if (!longURL) {
+      res.send("notFound");
     } else {
       res.redirect(longURL);
     }

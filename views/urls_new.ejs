@@ -14,25 +14,26 @@
       integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
       crossorigin="anonymous"
     />
-    <title>TinyApp</title>
+
+    <title>New URL - TinyApp Example</title>
   </head>
+
   <body style="font-size:20px; padding:50px;">
     <% include ./partials/_header %>
 
-    <h1>My URLs</h1>
-
-    <ul>
-      <% for (const key in urls) { %> <% if (urls.hasOwnProperty(key)) { %> <%
-      const url = urls[key]; %>
-      <li>
-        <a href="/u/<%= key %>"><%= key %></a> -> <%= urls[key] %>
-        <a href="<%= url.longURL %>"><%= url.longURL %></a> <%= url.userID %>
-        <a href="/urls/<%= key %>">Edit</a>
-        <form method="POST" action="/urls/<%= key %>/delete">
-          <input type="submit" value="Delete" />
-        </form>
-      </li>
-      <% } %> <% } %>
-    </ul>
+    <h3>Create TinyURL</h3>
+    <form class="form-inline" action="/urls" method="POST">
+      <div class="form-group mb-2">
+        <label for="longURL">Enter a URL:</label>
+        <input
+          class="form-control"
+          type="text"
+          name="longURL"
+          placeholder="http://"
+          style="width: 300px; margin: 1em"
+        />
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
   </body>
 </html>
