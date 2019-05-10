@@ -25,8 +25,8 @@
       <% for (const key in urls) { %> <% if (urls.hasOwnProperty(key)) { %> <%
       const url = urls[key]; %>
       <li>
-        <a target="blank" href="/u/<%= key %>"><%= key %></a> ->
-        <a href="<%= url.longURL %>"><%= url.longURL %></a> <%= url.userID %>
+        <a target="blank" href="/u/<%= key %>"><%= key %></a> ===>
+        <a href="<%= url.longURL %>"><%= url.longURL %></a> <% %>
         <a href="/urls/<%= key %>">Edit</a>
         <form method="POST" action="/urls/<%= key %>/delete">
           <input type="submit" value="Delete" />

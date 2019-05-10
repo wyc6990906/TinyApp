@@ -59,14 +59,14 @@ function makeid(length) {
 }
 // function to check if email is already used to register
 function checkRepeat(email) {
-  var didFindDuplicate = false;
+  var didRepeat = false;
   for (var user in users) {
     if (users[user].email === email) {
-      didFindDuplicate = true;
+      didRepeat = true;
       break;
     }
   }
-  return didFindDuplicate;
+  return didRepeat;
 }
 
 // function to check for email and passwords match database
@@ -103,9 +103,8 @@ app.get("/urls", (req, res) => {
   let templateVars;
   let userID = req.session.user_id;
   if (userID) {
-    console.log("db", urlDatabase[userID]);
     templateVars = {
-      urls: urlDatabase[userID],
+      urls: urlDatabase,
       user: users[userID]
     };
     res.render("urls_index", templateVars);
@@ -239,7 +238,7 @@ app.post("/logout", (req, res) => {
 app.post("/urls", (req, res) => {
   console.log(req.body); // Log the POST request body to the console
   urlDatabase[makeid(6)] = req.body.longURL;
-  res.send(urlDatabase);
+  // res.send(urlDatabase);
   return res.redirect("/urls");
 });
 

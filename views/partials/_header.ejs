@@ -8,7 +8,8 @@
   </head>
 
   <body style="font-size:20px; padding:50px;">
-    <p>Tiny App</p>
+    <h1>Tiny App</h1>
+    <p><font color="blue">Creat TinyURL</font></p>
 
     <% if (user) { %>
     <p style="margin: 0;"><%= user.email %></p>
@@ -17,6 +18,7 @@
         <span>Log out</span>
       </button>
     </form>
+    <a href="/urls/new">Shorten URL</a>
     <% } else { %>
     <form style="display: inline;" method="GET" action="/login">
       <button type="submit">
